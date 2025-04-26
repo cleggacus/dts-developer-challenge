@@ -12,6 +12,7 @@ export default function Dialog({ open, setOpen, ...props }: DialogProps) {
   >
     <div
       className={styles.bg}
+      data-testid="dialog-bg"
       onClick={e => {
         setOpen(false);
         e.stopPropagation();

@@ -40,19 +40,20 @@ export default function DeleteForm(props: DeleteProps) {
     }
   }
 
-  return <form onSubmit={(e => {
+  return <form data-testid="task-delete-form" onSubmit={(e) => {
     e.preventDefault();
     deleteTask();
-  })}>
+  }}>
     <Flex className={styles.container} gap="2xl" direction="column">
-      {
-        formState === "idle" ? <>
+      {formState === "idle" ? (
+        <>
           <h1>Are you sure?</h1>
 
           <Flex className={styles.container} direction="column">
             <Input
+              data-testid="task-title-input"
               value={value}
-              onChange={e => {
+              onChange={(e) => {
                 setError(undefined);
                 setValue(e.currentTarget.value);
               }}
@@ -61,17 +62,14 @@ export default function DeleteForm(props: DeleteProps) {
               placeholder="Task title"
             />
 
-            <Button variant="error">Delete</Button>
+            <Button variant="error" data-testid="task-delete-button">Delete</Button>
           </Flex>
-        </> :
-          formState === "deleting" ?
-            <>
-              <h2>Deleting</h2>
-            </> :
-            <>
-              <h2>Deleted</h2>
-            </>
-      }
+        </>
+      ) : formState === "deleting" ? (
+        <h2 data-testid="task-deleting">Deleting</h2>
+      ) : (
+        <h2 data-testid="task-deleted">Deleted</h2>
+      )}
     </Flex>
   </form>
 }

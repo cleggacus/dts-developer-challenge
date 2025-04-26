@@ -13,9 +13,7 @@ export default function Select({ label, className = "", error, onChange, childre
   const [errorState, setErrorState] = useState(false);
 
   useEffect(() => {
-    if (error) {
-      setErrorState(true);
-    }
+    setErrorState(!!error);
   }, [error]);
 
   return (
@@ -38,7 +36,7 @@ export default function Select({ label, className = "", error, onChange, childre
         {children}
       </select>
 
-      {error && <p className={styles.errorMessage}>{error}</p>}
+      {errorState && <p className={styles.errorMessage}>{error}</p>}
     </Column>
   );
 }

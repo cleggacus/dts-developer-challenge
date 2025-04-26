@@ -6,7 +6,7 @@ import TextArea from "../ui/textarea";
 import Select from "../ui/select";
 import Option from "../ui/option";
 import { useForm } from "@/hooks/useForm";
-import { CreateTaskSchema, createTaskSchema, UpdateTaskSchema, updateTaskSchema } from "@/schemas/tasks";
+import { UpdateTaskSchema, updateTaskSchema } from "@/schemas/tasks";
 import { useState } from "react";
 import { Task, useTasks } from "../context/task";
 
@@ -31,6 +31,7 @@ export default function UpdateForm(props: Props) {
   });
 
   const updateTask = async (data: UpdateTaskSchema) => {
+    console.log(1)
     setFormState("updating");
     const response = await tasksManager.updateTask(data);
 
@@ -46,52 +47,54 @@ export default function UpdateForm(props: Props) {
     }
   }
 
-  return <form onSubmit={handleSubmit(updateTask)}>
+  return <form data-testid="task-update-form" onSubmit={handleSubmit(updateTask)}>
     <Flex className={styles.container} gap="2xl" direction="column">
       {
-        formState === "idle" ? <>
-          <h1>Update task</h1>
+        formState === "idle" ? (
+          <>
+            <h1>Update task</h1>
 
-          <Flex className={styles.container} direction="column">
-            <Input
-              {...register("title")}
-              label="Title*"
-              placeholder="Name your task"
-            />
+            <Flex className={styles.container} direction="column">
+              <Input
+                {...register("title")}
+                label="Title*"
+                placeholder="Name your task"
+                data-testid="task-title-input"
+              />
 
-            <TextArea
-              {...register("description")}
-              label="Description (optional)"
-              placeholder="Describe your task"
-            />
+              <TextArea
+                {...register("description")}
+                label="Description (optional)"
+                placeholder="Describe your task"
+                data-testid="task-description-input"
+              />
 
-            <Input
-              {...register("due")}
-              grow
-              type="datetime-local"
-              label="Due data/time*"
-            />
+              <Input
+                {...register("due")}
+                grow
+                type="datetime-local"
+                label="Due date/time*"
+                data-testid="task-due-input"
+              />
 
-            <Select {...register("status")} label="Status*">
-              <Option value="not_started">Not Started</Option>
-              <Option value="in_progress">In Progress</Option>
-              <Option value="complete">Complete</Option>
-            </Select>
+              <Select {...register("status")} label="Status*" data-testid="task-status-select">
+                <Option value="not_started">Not Started</Option>
+                <Option value="in_progress">In Progress</Option>
+                <Option value="complete">Complete</Option>
+              </Select>
 
-            {
-              errors.root && <p className={styles.error}>{errors.root[0]}</p>
-            }
-          </Flex>
+              {
+                errors.root && <p className={styles.error} data-testid="task-error">{errors.root[0]}</p>
+              }
+            </Flex>
 
-          <Button>Update</Button>
-        </> :
-          formState === "updating" ?
-            <>
-              <h2>Updating</h2>
-            </> :
-            <>
-              <h2>Updated</h2>
-            </>
+            <Button data-testid="task-update-button">Update</Button>
+          </>
+        ) : formState === "updating" ? (
+          <h2 data-testid="task-updating">Updating</h2>
+        ) : (
+          <h2 data-testid="task-updated">Updated</h2>
+        )
       }
     </Flex>
   </form>

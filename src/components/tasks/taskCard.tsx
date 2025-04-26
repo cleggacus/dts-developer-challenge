@@ -30,8 +30,8 @@ export function TaskCard(props: TaskCardProps) {
         <h2>{props.task.title}</h2>
 
         <Flex direction="row" gap="xs">
-          <HiPencil onClick={() => setUpdateOpen(true)} className={styles.edit} />
-          <HiTrash onClick={() => setDeleteOpen(true)} className={styles.trash} />
+          <HiPencil data-testid="task-card-edit" aria-label="Edit task" onClick={() => setUpdateOpen(true)} className={styles.edit} />
+          <HiTrash data-testid="task-card-delete" aria-label="Delete task" onClick={() => setDeleteOpen(true)} className={styles.trash} />
         </Flex>
       </Flex>
 

@@ -41,53 +41,53 @@ export default function CreateForm(props: Props) {
     }
   }
 
-  return <form onSubmit={handleSubmit(createTask)}>
-    <Flex className={styles.container} gap="2xl" direction="column">
-      {
-        formState === "idle" ? <>
-          <h1>Create new task</h1>
+  return (
+    <form data-testid="task-create-form" onSubmit={handleSubmit(createTask)}>
+      <Flex className={styles.container} gap="2xl" direction="column">
+        {formState === "idle" ? (
+          <>
+            <h1>Create new task</h1>
 
-          <Flex className={styles.container} direction="column">
-            <Input
-              {...register("title")}
-              label="Title*"
-              placeholder="Name your task"
-            />
+            <Flex className={styles.container} direction="column">
+              <Input
+                {...register("title")}
+                label="Title*"
+                placeholder="Name your task"
+                data-testid="task-title-input"
+              />
 
-            <TextArea
-              {...register("description")}
-              label="Description (optional)"
-              placeholder="Describe your task"
-            />
+              <TextArea
+                {...register("description")}
+                label="Description (optional)"
+                placeholder="Describe your task"
+                data-testid="task-description-input"
+              />
 
-            <Input
-              {...register("due")}
-              grow
-              type="datetime-local"
-              label="Due data/time*"
-            />
+              <Input
+                {...register("due")}
+                grow
+                type="datetime-local"
+                label="Due date/time*"
+                data-testid="task-due-input"
+              />
 
-            <Select {...register("status")} label="Status*">
-              <Option value="not_started">Not Started</Option>
-              <Option value="in_progress">In Progress</Option>
-              <Option value="complete">Complete</Option>
-            </Select>
+              <Select {...register("status")} label="Status*" data-testid="task-status-select">
+                <Option value="not_started">Not Started</Option>
+                <Option value="in_progress">In Progress</Option>
+                <Option value="complete">Complete</Option>
+              </Select>
 
-            {
-              errors.root && <p className={styles.error}>{errors.root[0]}</p>
-            }
-          </Flex>
+              {errors.root?.length && <p className={styles.error} data-testid="task-error">{errors.root[0]}</p>}
+            </Flex>
 
-          <Button>Create</Button>
-        </> :
-          formState === "creating" ?
-            <>
-              <h2>Creating</h2>
-            </> :
-            <>
-              <h2>Created</h2>
-            </>
-      }
-    </Flex>
-  </form>
+            <Button data-testid="task-create-button">Create</Button>
+          </>
+        ) : formState === "creating" ? (
+          <h2 data-testid="task-creating">Creating</h2>
+        ) : (
+          <h2 data-testid="task-created">Created</h2>
+        )}
+      </Flex>
+    </form>
+  );
 }

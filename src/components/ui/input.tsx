@@ -14,9 +14,7 @@ export default function Input({ label, error, onChange, grow, ...props }: InputP
   const [errorInput, setErrorInput] = useState(false);
 
   useEffect(() => {
-    if (error) {
-      setErrorInput(true);
-    }
+    setErrorInput(!!error);
   }, [error])
 
   return <Column
@@ -35,7 +33,7 @@ export default function Input({ label, error, onChange, grow, ...props }: InputP
       }}
       {...props}
     />
-    {error && <p className={styles.errorMessage}>{error}</p>}
+    {errorInput && <p data-testid="input-error" className={styles.errorMessage}>{error}</p>}
 
   </Column>
 }

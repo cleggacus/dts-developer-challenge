@@ -13,9 +13,7 @@ export default function TextArea({ label, error, onChange, ...props }: TextAreaP
   const [errorInput, setErrorInput] = useState(false);
 
   useEffect(() => {
-    if (error) {
-      setErrorInput(true);
-    }
+    setErrorInput(!!error);
   }, [error])
 
   return <Column
@@ -34,7 +32,7 @@ export default function TextArea({ label, error, onChange, ...props }: TextAreaP
       }}
       {...props}
     />
-    {error && <p className={styles.errorMessage}>{error}</p>}
+    {errorInput && <p className={styles.errorMessage}>{error}</p>}
 
   </Column>
 }
