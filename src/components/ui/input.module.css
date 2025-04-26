@@ -1,0 +1,36 @@
+.container input, 
+.container textarea {
+  font-size: 1em;
+  font-family: inherit;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  outline: none;
+  background-color: var(--bg-3);
+  color: var(--fg-1);
+  border: none;
+
+  transition: 
+    background-color ease 0.3s,
+    border ease 0.3s,
+    color ease 0.3s;
+}
+
+.grow {
+  flex: 1;
+}
+
+.container .label {
+  color: var(--fg-1);
+  opacity: 0.7;
+}
+
+.container.error input, 
+.container.error textarea {
+  border: 1px solid var(--error-fg-1);
+  color: var(--error-fg-1);
+  background-color: var(--error-bg-1);
+}
+
+.container .errorMessage {
+  color: var(--error-fg-1);
+}

@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.select {
+  font-size: 1em;
+  font-family: inherit;
+  padding: var(--spacing-xs) calc(var(--spacing-xs) + 24px) var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  outline: none;
+  background-color: var(--bg-3);
+  color: var(--fg-1);
+  border: none;
+
+  appearance: none;
+
+  background-image: url("data:image/svg+xml,%3Csvg fill='%23cccccc' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--spacing-sm) center;
+  background-size: 1em;
+
+  transition:
+    background-color ease 0.3s,
+    border ease 0.3s,
+    color ease 0.3s;
+}
+
+.label {
+  opacity: 0.7;
+  color: var(--fg-1);
+  display: block;
+}
+
+.error .select {
+  border: 1px solid var(--error-fg-1);
+  color: var(--error-fg-1);
+  background-color: var(--error-bg-1);
+
+  background-image: url("data:image/svg+xml,%3Csvg fill='%23e06666' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+}
+
+.errorMessage {
+  color: var(--error-fg-1);
+  margin-top: var(--spacing-xs);
+  font-size: 0.9em;
+}
+

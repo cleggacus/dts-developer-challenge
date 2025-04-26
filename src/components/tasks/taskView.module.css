@@ -1,0 +1,6 @@
+.container > div {
+  flex-grow: 1;
+  flex-basis: 0;
+  height: fit-content;
+  min-width: 0;
+}
