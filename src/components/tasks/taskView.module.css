@@ -1,6 +1,18 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-lg);
+}
+
 .container > div {
   flex-grow: 1;
   flex-basis: 0;
   height: fit-content;
   min-width: 0;
+}
+
+@media (max-width: 800px) {
+  .container {
+    flex-direction: column;
+  }
 }

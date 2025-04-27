@@ -5,3 +5,9 @@
 .container .error {
   color: var(--error-fg-1);
 }
+
+@media (max-width: 30rem) {
+  .container {
+    width: calc(100vw - var(--spacing-lg) * 2);
+  }
+}

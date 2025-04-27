@@ -45,17 +45,18 @@ export default function DeleteForm(props: DeleteProps) {
   return (
     <form
       data-testid="task-delete-form"
+      className={styles.container}
       onSubmit={(e) => {
         e.preventDefault();
         deleteTask();
       }}
     >
-      <Flex className={styles.container} gap="2xl" direction="column">
+      <Flex gap="2xl" direction="column">
         {formState === "idle" ? (
           <>
             <h1>Are you sure?</h1>
 
-            <Flex className={styles.container} direction="column">
+            <Flex direction="column">
               <Input
                 data-testid="task-title-input"
                 value={value}

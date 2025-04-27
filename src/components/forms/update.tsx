@@ -49,13 +49,17 @@ export default function UpdateForm(props: Props) {
   };
 
   return (
-    <form data-testid="task-update-form" onSubmit={handleSubmit(updateTask)}>
-      <Flex className={styles.container} gap="2xl" direction="column">
+    <form
+      className={styles.container}
+      data-testid="task-update-form"
+      onSubmit={handleSubmit(updateTask)}
+    >
+      <Flex gap="2xl" direction="column">
         {formState === "idle" ? (
           <>
             <h1>Update task</h1>
 
-            <Flex className={styles.container} direction="column">
+            <Flex direction="column">
               <Input
                 {...register("title")}
                 label="Title*"

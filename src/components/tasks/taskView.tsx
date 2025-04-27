@@ -7,12 +7,7 @@ import TaskList from "./taskList";
 
 export default function TaskView() {
   return (
-    <Flex
-      direction="row"
-      gap="lg"
-      className={styles.container}
-      data-testid="task-view"
-    >
+    <div className={styles.container} data-testid="task-view">
       <Card>
         <Flex direction="column">
           <h2 data-testid="not-started-header">Not Started</h2>
@@ -33,6 +28,6 @@ export default function TaskView() {
           <TaskList status="complete" />
         </Flex>
       </Card>
-    </Flex>
+    </div>
   );
 }

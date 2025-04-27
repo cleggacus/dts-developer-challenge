@@ -44,13 +44,17 @@ export default function CreateForm(props: Props) {
   };
 
   return (
-    <form data-testid="task-create-form" onSubmit={handleSubmit(createTask)}>
-      <Flex className={styles.container} gap="2xl" direction="column">
+    <form
+      className={styles.container}
+      data-testid="task-create-form"
+      onSubmit={handleSubmit(createTask)}
+    >
+      <Flex gap="2xl" direction="column">
         {formState === "idle" ? (
           <>
             <h1>Create new task</h1>
 
-            <Flex className={styles.container} direction="column">
+            <Flex direction="column">
               <Input
                 {...register("title")}
                 label="Title*"
