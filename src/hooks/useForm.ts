@@ -1,18 +1,21 @@
 import { useState } from "react";
 import { z } from "zod";
 
-export type ZodFormSchema = z.ZodObject<z.ZodRawShape> | z.ZodEffects<z.ZodObject<z.ZodRawShape>> | z.ZodEffects<z.ZodEffects<z.ZodObject<z.ZodRawShape>>>;
+export type ZodFormSchema =
+  | z.ZodObject<z.ZodRawShape>
+  | z.ZodEffects<z.ZodObject<z.ZodRawShape>>
+  | z.ZodEffects<z.ZodEffects<z.ZodObject<z.ZodRawShape>>>;
 
 export type ErrorMap<T extends ZodFormSchema> = {
   [K in keyof z.input<T>]?: string[] | undefined;
 } & {
-  "root"?: string[] | undefined
+  root?: string[] | undefined;
 };
 
 export type FormArg<T extends ZodFormSchema> = {
-  schema: T,
-  default: Partial<z.input<T>>
-}
+  schema: T;
+  default: Partial<z.input<T>>;
+};
 
 function getShape(schema: ZodFormSchema) {
   while (schema instanceof z.ZodEffects) {
@@ -28,8 +31,8 @@ function getInitVals<T extends ZodFormSchema>(formArg: FormArg<T>) {
       acc[key as keyof z.input<T>] = "" as z.input<T>[typeof key];
       return acc;
     }, {} as z.input<T>),
-    ...formArg.default
-  }
+    ...formArg.default,
+  };
 }
 
 export function useForm<T extends ZodFormSchema>(formArg: FormArg<T>) {
@@ -41,13 +44,17 @@ export function useForm<T extends ZodFormSchema>(formArg: FormArg<T>) {
       value: values[key],
       error: errors[key] ? errors[key][0] : undefined,
       name: key,
-      onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+      onChange: (
+        e: React.ChangeEvent<
+          HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+        >,
+      ) => {
         setValues((values) => ({
           ...values,
-          [key]: e.target.value
+          [key]: e.target.value,
         }));
-      }
-    }
+      },
+    };
   }
 
   function handleSubmit(onValid: (values: z.infer<T>) => void) {
@@ -71,6 +78,5 @@ export function useForm<T extends ZodFormSchema>(formArg: FormArg<T>) {
     values,
     setValues,
     handleSubmit,
-  }
+  };
 }
-

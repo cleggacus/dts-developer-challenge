@@ -12,20 +12,25 @@ import { TasksProvider } from "@/components/context/task";
 export default function Home() {
   const [open, setOpen] = useState(false);
 
-  return <TasksProvider>
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <h1>Tasks</h1>
-        <div>
-          <Button onClick={() => setOpen(true)}>New Task <HiOutlinePlusSm /></Button>
+  return (
+    <TasksProvider>
+      <div className={styles.container}>
+        <div className={styles.header}>
+          <h1>Tasks</h1>
+          <div>
+            <Button onClick={() => setOpen(true)}>
+              New Task <HiOutlinePlusSm />
+            </Button>
 
-          <Dialog open={open} setOpen={setOpen}>
-            <CreateForm onCreated={() => setOpen(false)} />
-          </Dialog>
+            <Dialog open={open} setOpen={setOpen}>
+              <CreateForm onCreated={() => setOpen(false)} />
+            </Dialog>
+          </div>
         </div>
-      </div>
 
-      <TaskView />
-    </div >;
-  </TasksProvider>
+        <TaskView />
+      </div>
+      ;
+    </TasksProvider>
+  );
 }

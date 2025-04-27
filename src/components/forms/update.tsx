@@ -11,12 +11,14 @@ import { useState } from "react";
 import { Task, useTasks } from "../context/task";
 
 type Props = {
-  task: Task,
-  onUpdate?: () => void
-}
+  task: Task;
+  onUpdate?: () => void;
+};
 
 export default function UpdateForm(props: Props) {
-  const [formState, setFormState] = useState<"idle" | "updating" | "updated">("idle")
+  const [formState, setFormState] = useState<"idle" | "updating" | "updated">(
+    "idle",
+  );
   const tasksManager = useTasks();
 
   const { register, handleSubmit, errors, setErrors } = useForm({
@@ -27,11 +29,11 @@ export default function UpdateForm(props: Props) {
       title: props.task.title,
       description: props.task.description ?? undefined,
       due: props.task.due.toISOString().slice(0, 16),
-    }
+    },
   });
 
   const updateTask = async (data: UpdateTaskSchema) => {
-    console.log(1)
+    console.log(1);
     setFormState("updating");
     const response = await tasksManager.updateTask(data);
 
@@ -45,12 +47,12 @@ export default function UpdateForm(props: Props) {
         props.onUpdate();
       }
     }
-  }
+  };
 
-  return <form data-testid="task-update-form" onSubmit={handleSubmit(updateTask)}>
-    <Flex className={styles.container} gap="2xl" direction="column">
-      {
-        formState === "idle" ? (
+  return (
+    <form data-testid="task-update-form" onSubmit={handleSubmit(updateTask)}>
+      <Flex className={styles.container} gap="2xl" direction="column">
+        {formState === "idle" ? (
           <>
             <h1>Update task</h1>
 
@@ -77,15 +79,21 @@ export default function UpdateForm(props: Props) {
                 data-testid="task-due-input"
               />
 
-              <Select {...register("status")} label="Status*" data-testid="task-status-select">
+              <Select
+                {...register("status")}
+                label="Status*"
+                data-testid="task-status-select"
+              >
                 <Option value="not_started">Not Started</Option>
                 <Option value="in_progress">In Progress</Option>
                 <Option value="complete">Complete</Option>
               </Select>
 
-              {
-                errors.root && <p className={styles.error} data-testid="task-error">{errors.root[0]}</p>
-              }
+              {errors.root && (
+                <p className={styles.error} data-testid="task-error">
+                  {errors.root[0]}
+                </p>
+              )}
             </Flex>
 
             <Button data-testid="task-update-button">Update</Button>
@@ -94,8 +102,8 @@ export default function UpdateForm(props: Props) {
           <h2 data-testid="task-updating">Updating</h2>
         ) : (
           <h2 data-testid="task-updated">Updated</h2>
-        )
-      }
-    </Flex>
-  </form>
+        )}
+      </Flex>
+    </form>
+  );
 }

@@ -69,11 +69,7 @@
     "public.status": {
       "name": "status",
       "schema": "public",
-      "values": [
-        "not_started",
-        "in_progress",
-        "complete"
-      ]
+      "values": ["not_started", "in_progress", "complete"]
     }
   },
   "schemas": {},

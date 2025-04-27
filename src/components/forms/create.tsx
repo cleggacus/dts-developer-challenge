@@ -11,18 +11,20 @@ import { useState } from "react";
 import { useTasks } from "../context/task";
 
 type Props = {
-  onCreated?: () => void
-}
+  onCreated?: () => void;
+};
 
 export default function CreateForm(props: Props) {
-  const [formState, setFormState] = useState<"idle" | "creating" | "created">("idle")
+  const [formState, setFormState] = useState<"idle" | "creating" | "created">(
+    "idle",
+  );
   const tasksManager = useTasks();
 
   const { register, handleSubmit, setErrors, errors } = useForm({
     schema: createTaskSchema,
     default: {
-      status: "not_started"
-    }
+      status: "not_started",
+    },
   });
 
   const createTask = async (data: CreateTaskSchema) => {
@@ -39,7 +41,7 @@ export default function CreateForm(props: Props) {
         props.onCreated();
       }
     }
-  }
+  };
 
   return (
     <form data-testid="task-create-form" onSubmit={handleSubmit(createTask)}>
@@ -71,13 +73,21 @@ export default function CreateForm(props: Props) {
                 data-testid="task-due-input"
               />
 
-              <Select {...register("status")} label="Status*" data-testid="task-status-select">
+              <Select
+                {...register("status")}
+                label="Status*"
+                data-testid="task-status-select"
+              >
                 <Option value="not_started">Not Started</Option>
                 <Option value="in_progress">In Progress</Option>
                 <Option value="complete">Complete</Option>
               </Select>
 
-              {errors.root?.length && <p className={styles.error} data-testid="task-error">{errors.root[0]}</p>}
+              {errors.root?.length && (
+                <p className={styles.error} data-testid="task-error">
+                  {errors.root[0]}
+                </p>
+              )}
             </Flex>
 
             <Button data-testid="task-create-button">Create</Button>

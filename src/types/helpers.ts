@@ -1,6 +1,6 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export type RouteFn<T> = (...args: any[]) => Promise<NextResponse<T>>;
+export type RouteFn<T> = (req: NextRequest) => Promise<NextResponse<T>>;
 
-export type InferResponseType<T extends RouteFn<any>> =
+export type InferResponseType<T extends RouteFn<object>> =
   T extends RouteFn<infer U> ? U : never;

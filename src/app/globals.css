@@ -31,11 +31,10 @@
   --radius-md: 0.6rem;
   --radius-lg: 0.8rem;
 
-
   --card-bg-1: var(--bg-2);
   --card-bg-2: var(--bg-3);
 
-  --card-border-1: none; 
+  --card-border-1: none;
   --card-border-2: none;
 }
 

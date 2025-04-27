@@ -1,14 +1,18 @@
 import { z } from "zod";
 
-const dateTimeString = z.string()
-  .refine((val) => !isNaN(Date.parse(val)), {
-    message: "Invalid date-time string",
-  });
+const dateTimeString = z.string().refine((val) => !isNaN(Date.parse(val)), {
+  message: "invalid date-time string",
+});
+
+const titleString = z.string().min(1, { message: "title is required" });
+const statusEnum = z.enum(["not_started", "in_progress", "complete"], {
+  message: "status must be not_started, in_progress, or complete",
+});
 
 export const createTaskSchema = z.object({
-  title: z.string().min(1),
+  title: titleString,
   description: z.string().optional(),
-  status: z.enum(['not_started', 'in_progress', 'complete']),
+  status: statusEnum,
   due: dateTimeString,
 });
 
@@ -22,9 +26,9 @@ export const getTaskSchema = z.object({
 
 export const updateTaskSchema = z.object({
   id: z.string().uuid(),
-  title: z.string().min(1).optional(),
+  title: titleString.optional(),
   description: z.string().optional(),
-  status: z.enum(['not_started', 'in_progress', 'complete']).optional(),
+  status: statusEnum.optional(),
   due: dateTimeString.optional(),
 });
 

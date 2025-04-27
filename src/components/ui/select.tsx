@@ -7,9 +7,19 @@ import { Column } from "./flex";
 type SelectProps = {
   label?: string;
   error?: string;
-} & React.DetailedHTMLProps<React.SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>;
+} & React.DetailedHTMLProps<
+  React.SelectHTMLAttributes<HTMLSelectElement>,
+  HTMLSelectElement
+>;
 
-export default function Select({ label, className = "", error, onChange, children, ...props }: SelectProps) {
+export default function Select({
+  label,
+  className = "",
+  error,
+  onChange,
+  children,
+  ...props
+}: SelectProps) {
   const [errorState, setErrorState] = useState(false);
 
   useEffect(() => {

@@ -1,7 +1,7 @@
-import { db } from '@/db';
-import { task } from '@/db/schema';
-import { InferResponseType } from '@/types/helpers';
-import { NextResponse } from 'next/server';
+import { db } from "@/db";
+import { task } from "@/db/schema";
+import { InferResponseType } from "@/types/helpers";
+import { NextResponse } from "next/server";
 
 export async function GET() {
   const tasks = await db.select().from(task);

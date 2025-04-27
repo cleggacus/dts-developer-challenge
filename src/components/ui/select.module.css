@@ -6,7 +6,8 @@
 .select {
   font-size: 1em;
   font-family: inherit;
-  padding: var(--spacing-xs) calc(var(--spacing-xs) + 24px) var(--spacing-xs) var(--spacing-sm);
+  padding: var(--spacing-xs) calc(var(--spacing-xs) + 24px) var(--spacing-xs)
+    var(--spacing-sm);
   border-radius: var(--radius-sm);
   outline: none;
   background-color: var(--bg-3);
@@ -45,4 +46,3 @@
   margin-top: var(--spacing-xs);
   font-size: 0.9em;
 }
-

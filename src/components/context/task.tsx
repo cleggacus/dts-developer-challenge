@@ -5,7 +5,12 @@ import { ListTaskResponse } from "@/app/api/tasks/list/route";
 import { UpdateTaskResponse } from "@/app/api/tasks/update/route";
 import { task } from "@/db/schema";
 import { ErrorMap, ZodFormSchema } from "@/hooks/useForm";
-import { createTaskSchema, deleteTaskSchema, getTaskSchema, updateTaskSchema } from "@/schemas/tasks";
+import {
+  createTaskSchema,
+  deleteTaskSchema,
+  getTaskSchema,
+  updateTaskSchema,
+} from "@/schemas/tasks";
 import { InferSelectModel } from "drizzle-orm";
 import { createContext, useContext, useEffect, useState } from "react";
 import { z } from "zod";
@@ -15,13 +20,15 @@ export type Task = InferSelectModel<typeof task>;
 type Tasks =
   | { state: "fetching" }
   | { state: "failed" }
-  | ({ state: "fetched", taskList: Task[] });
+  | { state: "fetched"; taskList: Task[] };
 
 type ActionResult<T extends ZodFormSchema, U> =
   | ({ state: "success" } & U)
   | { state: "error"; errors: ErrorMap<T> };
 
-type Action<T extends ZodFormSchema, U = {}> = (data: z.infer<T>) => Promise<ActionResult<T, U>>;
+type Action<T extends ZodFormSchema, U = object> = (
+  data: z.infer<T>,
+) => Promise<ActionResult<T, U>>;
 
 export type TasksContextType = {
   tasks: Tasks;
@@ -36,7 +43,7 @@ const TasksContext = createContext<TasksContextType | undefined>(undefined);
 
 export const TasksProvider = ({ children }: { children: React.ReactNode }) => {
   const [tasks, setTasks] = useState<Tasks>({
-    state: "fetching"
+    state: "fetching",
   });
 
   const context: TasksContextType = {
@@ -62,8 +69,8 @@ export const TasksProvider = ({ children }: { children: React.ReactNode }) => {
         setTasks(tasks);
       } catch {
         setTasks({
-          state: "failed"
-        })
+          state: "failed",
+        });
       }
     },
     async createTask(task) {
@@ -81,17 +88,17 @@ export const TasksProvider = ({ children }: { children: React.ReactNode }) => {
         if ("error" in data) {
           return {
             state: "error",
-            errors: data.error
-          }
+            errors: data.error,
+          };
         }
 
         if (!response.ok) {
           return {
             state: "error",
             errors: {
-              root: ["Something went wrong"]
-            }
-          }
+              root: ["Something went wrong"],
+            },
+          };
         }
 
         data.updatedAt = new Date(data.updatedAt);
@@ -99,27 +106,27 @@ export const TasksProvider = ({ children }: { children: React.ReactNode }) => {
         data.due = new Date(data.due);
 
         // creates task locally
-        setTasks(tasks => {
+        setTasks((tasks) => {
           if (tasks.state == "fetched") {
             tasks = {
               state: "fetched",
-              taskList: [...tasks.taskList, data]
-            }
+              taskList: [...tasks.taskList, data],
+            };
           }
 
           return tasks;
-        })
+        });
 
         return {
-          state: "success"
-        }
+          state: "success",
+        };
       } catch {
         return {
           state: "error",
           errors: {
-            root: ["Something went wrong"]
-          }
-        }
+            root: ["Something went wrong"],
+          },
+        };
       }
     },
     async updateTask(task) {
@@ -137,17 +144,17 @@ export const TasksProvider = ({ children }: { children: React.ReactNode }) => {
         if ("error" in data) {
           return {
             state: "error",
-            errors: data.error
-          }
+            errors: data.error,
+          };
         }
 
         if (!response.ok) {
           return {
             state: "error",
             errors: {
-              root: ["Something went wrong"]
-            }
-          }
+              root: ["Something went wrong"],
+            },
+          };
         }
 
         data.updatedAt = new Date(data.updatedAt);
@@ -155,35 +162,38 @@ export const TasksProvider = ({ children }: { children: React.ReactNode }) => {
         data.due = new Date(data.due);
 
         // update task locally
-        setTasks(tasks => {
+        setTasks((tasks) => {
           if (tasks.state == "fetched") {
-            const index = tasks.taskList.findIndex(item => item.id === data.id);
+            const index = tasks.taskList.findIndex(
+              (item) => item.id === data.id,
+            );
 
             tasks = {
               state: "fetched",
-              taskList: index === -1 ?
-                [...tasks.taskList, data] :
-                [
-                  ...tasks.taskList.slice(0, index),
-                  data,
-                  ...tasks.taskList.slice(index + 1),
-                ]
-            }
+              taskList:
+                index === -1
+                  ? [...tasks.taskList, data]
+                  : [
+                      ...tasks.taskList.slice(0, index),
+                      data,
+                      ...tasks.taskList.slice(index + 1),
+                    ],
+            };
           }
 
           return tasks;
-        })
+        });
 
         return {
-          state: "success"
-        }
+          state: "success",
+        };
       } catch {
         return {
           state: "error",
           errors: {
-            root: ["Something went wrong"]
-          }
-        }
+            root: ["Something went wrong"],
+          },
+        };
       }
     },
     async deleteTask(task) {
@@ -201,27 +211,29 @@ export const TasksProvider = ({ children }: { children: React.ReactNode }) => {
         if ("error" in data) {
           return {
             state: "error",
-            errors: data.error
-          }
+            errors: data.error,
+          };
         }
 
         if (!response.ok) {
           return {
             state: "error",
             errors: {
-              root: ["Something went wrong"]
-            }
-          }
+              root: ["Something went wrong"],
+            },
+          };
         }
 
         data.updatedAt = new Date(data.updatedAt);
         data.createdAt = new Date(data.createdAt);
         data.due = new Date(data.due);
 
-        // delete task locally 
-        setTasks(tasks => {
+        // delete task locally
+        setTasks((tasks) => {
           if (tasks.state == "fetched") {
-            const index = tasks.taskList.findIndex(item => item.id === data.id);
+            const index = tasks.taskList.findIndex(
+              (item) => item.id === data.id,
+            );
 
             if (index != -1) {
               tasks = {
@@ -229,24 +241,24 @@ export const TasksProvider = ({ children }: { children: React.ReactNode }) => {
                 taskList: [
                   ...tasks.taskList.slice(0, index),
                   ...tasks.taskList.slice(index + 1),
-                ]
-              }
+                ],
+              };
             }
           }
 
           return tasks;
-        })
+        });
 
         return {
-          state: "success"
-        }
+          state: "success",
+        };
       } catch {
         return {
           state: "error",
           errors: {
-            root: ["Something went wrong"]
-          }
-        }
+            root: ["Something went wrong"],
+          },
+        };
       }
     },
     async fetchTask(task) {
@@ -264,65 +276,66 @@ export const TasksProvider = ({ children }: { children: React.ReactNode }) => {
         if ("error" in data) {
           return {
             state: "error",
-            errors: data.error
-          }
+            errors: data.error,
+          };
         }
 
         if (!response.ok) {
           return {
             state: "error",
             errors: {
-              root: ["Something went wrong"]
-            }
-          }
+              root: ["Something went wrong"],
+            },
+          };
         }
 
         data.updatedAt = new Date(data.updatedAt);
         data.createdAt = new Date(data.createdAt);
         data.due = new Date(data.due);
 
-        setTasks(tasks => {
+        setTasks((tasks) => {
           if (tasks.state == "fetched") {
-            const index = tasks.taskList.findIndex(item => item.id === data.id);
+            const index = tasks.taskList.findIndex(
+              (item) => item.id === data.id,
+            );
 
             tasks = {
               state: "fetched",
-              taskList: index === -1 ?
-                [...tasks.taskList, data] :
-                [
-                  ...tasks.taskList.slice(0, index),
-                  data,
-                  ...tasks.taskList.slice(index + 1),
-                ]
-            }
+              taskList:
+                index === -1
+                  ? [...tasks.taskList, data]
+                  : [
+                      ...tasks.taskList.slice(0, index),
+                      data,
+                      ...tasks.taskList.slice(index + 1),
+                    ],
+            };
           }
 
           return tasks;
-        })
+        });
 
         return {
           state: "success",
-          ...data
-        }
+          ...data,
+        };
       } catch {
         return {
           state: "error",
           errors: {
-            root: ["Something went wrong"]
-          }
-        }
+            root: ["Something went wrong"],
+          },
+        };
       }
     },
-  }
+  };
 
   useEffect(() => {
     context.refetch();
-  }, [])
+  }, []);
 
   return (
-    <TasksContext.Provider value={context}>
-      {children}
-    </TasksContext.Provider>
+    <TasksContext.Provider value={context}>{children}</TasksContext.Provider>
   );
 };
 
@@ -335,4 +348,3 @@ export const useTasks = () => {
 
   return context;
 };
-

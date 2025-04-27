@@ -1,32 +1,32 @@
-import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
-import Flex, { Row, Column } from '../flex';
+import "@testing-library/jest-dom";
+import { render, screen } from "@testing-library/react";
+import Flex, { Row, Column } from "../flex";
 
-describe('Flex component', () => {
-  it('renders children correctly', () => {
+describe("Flex component", () => {
+  it("renders children correctly", () => {
     render(<Flex>flex content</Flex>);
-    const content = screen.getByText('flex content');
+    const content = screen.getByText("flex content");
     expect(content).toBeInTheDocument();
   });
 
-  it('applies default direction (row)', () => {
+  it("applies default direction (row)", () => {
     const { container } = render(<Flex>flex content</Flex>);
-    expect(container.firstChild).toHaveClass('row');
+    expect(container.firstChild).toHaveClass("row");
   });
 
-  it('applies column direction correctly', () => {
+  it("applies column direction correctly", () => {
     const { container } = render(<Flex direction="column">flex content</Flex>);
-    expect(container.firstChild).toHaveClass('column');
+    expect(container.firstChild).toHaveClass("column");
   });
 
-  it('applies default gap correctly', () => {
+  it("applies default gap correctly", () => {
     const { container } = render(<Flex>flex content</Flex>);
-    expect(container.firstChild).toHaveStyle('gap: var(--spacing-md)');
+    expect(container.firstChild).toHaveStyle("gap: var(--spacing-md)");
   });
 
-  it('applies custom gap correctly', () => {
+  it("applies custom gap correctly", () => {
     const { container } = render(<Flex gap="xl">flex content</Flex>);
-    expect(container.firstChild).toHaveStyle('gap: var(--spacing-xl)');
+    expect(container.firstChild).toHaveStyle("gap: var(--spacing-xl)");
   });
 
   it('does not apply gap when gap is "none"', () => {
@@ -34,29 +34,33 @@ describe('Flex component', () => {
     expect(container.firstChild).toHaveStyle({ gap: undefined });
   });
 
-  it('applies custom class correctly', () => {
-    const { container } = render(<Flex className="custom-class">flex content</Flex>);
-    expect(container.firstChild).toHaveClass('custom-class');
+  it("applies custom class correctly", () => {
+    const { container } = render(
+      <Flex className="custom-class">flex content</Flex>,
+    );
+    expect(container.firstChild).toHaveClass("custom-class");
   });
 
-  it('applies custom style correctly', () => {
-    const { container } = render(<Flex style={{ backgroundColor: 'blue' }}>flex content</Flex>);
-    expect(container.firstChild).toHaveStyle('background-color: blue');
+  it("applies custom style correctly", () => {
+    const { container } = render(
+      <Flex style={{ backgroundColor: "blue" }}>flex content</Flex>,
+    );
+    expect(container.firstChild).toHaveStyle("background-color: blue");
   });
 });
 
-describe('Row component', () => {
-  it('renders as a Flex with row direction', () => {
+describe("Row component", () => {
+  it("renders as a Flex with row direction", () => {
     const { container } = render(<Row>row content</Row>);
-    expect(container.firstChild).toHaveClass('row');
-    expect(screen.getByText('row content')).toBeInTheDocument();
+    expect(container.firstChild).toHaveClass("row");
+    expect(screen.getByText("row content")).toBeInTheDocument();
   });
 });
 
-describe('Column component', () => {
-  it('renders as a Flex with column direction', () => {
+describe("Column component", () => {
+  it("renders as a Flex with column direction", () => {
     const { container } = render(<Column>column content</Column>);
-    expect(container.firstChild).toHaveClass('column');
-    expect(screen.getByText('column content')).toBeInTheDocument();
+    expect(container.firstChild).toHaveClass("column");
+    expect(screen.getByText("column content")).toBeInTheDocument();
   });
 });
