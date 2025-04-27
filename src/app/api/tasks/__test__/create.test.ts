@@ -3,7 +3,7 @@
  */
 
 import { POST } from "../create/route";
-import { db } from '@/db';
+import { db } from "@/db";
 import { NextRequest } from "next/server";
 
 jest.mock("@/db", () => ({
@@ -14,11 +14,11 @@ jest.mock("@/db", () => ({
   },
 }));
 
-const mockedDB = db as any as ({
+const mockedDB = db as any as {
   insert: jest.Mock<any, any, any>;
   values: jest.Mock<any, any, any>;
   returning: jest.Mock<any, any, any>;
-});
+};
 
 describe("POST /api/tasks", () => {
   beforeEach(() => {

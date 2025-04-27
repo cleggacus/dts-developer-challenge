@@ -182,10 +182,10 @@ export const TasksProvider = ({ children }: { children: React.ReactNode }) => {
                 index === -1
                   ? [...tasks.taskList, data]
                   : [
-                    ...tasks.taskList.slice(0, index),
-                    data,
-                    ...tasks.taskList.slice(index + 1),
-                  ],
+                      ...tasks.taskList.slice(0, index),
+                      data,
+                      ...tasks.taskList.slice(index + 1),
+                    ],
             };
           }
 
@@ -313,10 +313,10 @@ export const TasksProvider = ({ children }: { children: React.ReactNode }) => {
                 index === -1
                   ? [...tasks.taskList, data]
                   : [
-                    ...tasks.taskList.slice(0, index),
-                    data,
-                    ...tasks.taskList.slice(index + 1),
-                  ],
+                      ...tasks.taskList.slice(0, index),
+                      data,
+                      ...tasks.taskList.slice(index + 1),
+                    ],
             };
           }
 

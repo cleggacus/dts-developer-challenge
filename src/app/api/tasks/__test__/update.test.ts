@@ -17,12 +17,12 @@ jest.mock("@/db", () => ({
   },
 }));
 
-const mockedDB = db as any as ({
+const mockedDB = db as any as {
   update: jest.Mock<any, any, any>;
   set: jest.Mock<any, any, any>;
   where: jest.Mock<any, any, any>;
   returning: jest.Mock<any, any, any>;
-});
+};
 
 describe("PUT /api/tasks", () => {
   beforeEach(() => {
@@ -51,7 +51,7 @@ describe("PUT /api/tasks", () => {
     expect(res.status).toBe(400);
     expect(json).toEqual({
       error: {
-        id: ['Required'],
+        id: ["Required"],
       },
     });
   });
@@ -100,7 +100,11 @@ describe("PUT /api/tasks", () => {
   });
 
   it("should return 404 if task is not found", async () => {
-    const body = { id: "999", title: "Non-existent Task", status: "not_started" };
+    const body = {
+      id: "999",
+      title: "Non-existent Task",
+      status: "not_started",
+    };
 
     mockedDB.returning.mockResolvedValueOnce([]);
 

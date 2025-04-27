@@ -3,7 +3,7 @@
  */
 
 import { GET } from "../list/route";
-import { db } from '@/db';
+import { db } from "@/db";
 import { task } from "@/db/schema";
 
 jest.mock("@/db", () => ({
@@ -13,10 +13,10 @@ jest.mock("@/db", () => ({
   },
 }));
 
-const mockedDB = db as any as ({
+const mockedDB = db as any as {
   select: jest.Mock<any, any, any>;
   from: jest.Mock<any, any, any>;
-});
+};
 
 describe("GET /api/tasks", () => {
   beforeEach(() => {
@@ -25,8 +25,20 @@ describe("GET /api/tasks", () => {
 
   it("should return list of tasks successfully", async () => {
     const mockTasks = [
-      { id: "1", title: "Task 1", description: "Description 1", status: "not_started", due: new Date().toISOString() },
-      { id: "2", title: "Task 2", description: "Description 2", status: "in_progress", due: new Date().toISOString() },
+      {
+        id: "1",
+        title: "Task 1",
+        description: "Description 1",
+        status: "not_started",
+        due: new Date().toISOString(),
+      },
+      {
+        id: "2",
+        title: "Task 2",
+        description: "Description 2",
+        status: "in_progress",
+        due: new Date().toISOString(),
+      },
     ];
 
     mockedDB.from.mockReturnValueOnce(mockTasks);

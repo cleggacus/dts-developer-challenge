@@ -33,7 +33,6 @@ export default function UpdateForm(props: Props) {
   });
 
   const updateTask = async (data: UpdateTaskSchema) => {
-    console.log(1);
     setFormState("updating");
     const response = await tasksManager.updateTask(data);
 

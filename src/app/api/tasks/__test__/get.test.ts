@@ -3,7 +3,7 @@
  */
 
 import { POST } from "../get/route";
-import { db } from '@/db';
+import { db } from "@/db";
 import { task } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { NextRequest } from "next/server";
@@ -17,12 +17,12 @@ jest.mock("@/db", () => ({
   },
 }));
 
-const mockedDB = db as any as ({
+const mockedDB = db as any as {
   select: jest.Mock<any, any, any>;
   from: jest.Mock<any, any, any>;
   where: jest.Mock<any, any, any>;
   returning: jest.Mock<any, any, any>;
-});
+};
 
 describe("GET /api/tasks", () => {
   beforeEach(() => {
@@ -44,7 +44,7 @@ describe("GET /api/tasks", () => {
     const json = await res.json();
 
     expect(res.status).toBe(400);
-    expect(json).toEqual({ error: { id: ['Required'] } });
+    expect(json).toEqual({ error: { id: ["Required"] } });
   });
 
   it("should return task details successfully", async () => {
