@@ -102,7 +102,7 @@ describe("UpdateForm", () => {
 
     await waitFor(() => {
       expect(screen.getByTestId("task-error")).toHaveTextContent(
-        "Something went wrong"
+        "Something went wrong",
       );
     });
   });

@@ -28,3 +28,8 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
+.datetime {
+  opacity: 0.5;
+  text-align: right;
+}

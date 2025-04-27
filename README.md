@@ -6,16 +6,18 @@ This project is a solution developed as part of the [HMCTS Developer Technical T
 
 This project utilizes the following technologies:
 
-- **Frontend**: 
+- **Frontend**:
+
   - Next.js/React for the frontend framework
   - Zod for schema form client side validation.
 
-- **Backend**: 
+- **Backend**:
+
   - Next.js app router route handlers to handle API endpoints (works as rest api).
   - Drizzle ORM
   - Neon DB (PostgreSQL for edge) is db to easily host on vercel
 
-- **Testing**: 
+- **Testing**:
   - Jest is used for unit testing both the frontend and backend.
   - React Testing Library for unit testing both the frontend and backend.
 
@@ -31,6 +33,7 @@ URL: `/api/tasks/create`
 Method: `POST`  
 Content-Type: `application/json`
 Request Body:
+
 ```
 {
   title: (string, required) The title of the task
@@ -57,6 +60,7 @@ Request Body:
 ```
 
 ##### Failure (HTTP 400 Bad Request)
+
 ```json
 {
   "error": {
@@ -68,6 +72,7 @@ Request Body:
 ```
 
 ##### Failure (HTTP 500 Internal Server Error)
+
 ```json
 {
   "error": {
@@ -77,6 +82,7 @@ Request Body:
 ```
 
 ### DELETE /api/tasks/delete
+
 This endpoint is used to delete a task by its ID.
 
 #### Request
@@ -85,6 +91,7 @@ URL: `/api/tasks/delete`
 Method: `DELETE`
 Content-Type: `application/json`
 Request Body:
+
 ```
 {
   id: (string, required) uuid of task
@@ -92,7 +99,9 @@ Request Body:
 ```
 
 #### Response
+
 ##### Success (HTTP 200 OK)
+
 ```json
 {
   "id": "7fs7238d-sdfi-3asdf-asdf-asdfasdf34",
@@ -106,6 +115,7 @@ Request Body:
 ```
 
 ##### Failure (HTTP 400 Bad Request)
+
 ```json
 {
   "error": {
@@ -115,6 +125,7 @@ Request Body:
 ```
 
 ##### Failure (HTTP 404 Bad Request)
+
 ```json
 {
   "error": {
@@ -124,6 +135,7 @@ Request Body:
 ```
 
 ##### Failure (HTTP 500 Internal Server Error)
+
 ```json
 {
   "error": {
@@ -132,8 +144,8 @@ Request Body:
 }
 ```
 
-
 ### GET /api/tasks/get
+
 This endpoint retrieves a task by its ID
 
 #### Request
@@ -142,6 +154,7 @@ URL: `/api/tasks/get`
 Method: `GET`
 Content-Type: `application/json`
 Request Body:
+
 ```
 {
   id: (string, required) uuid of task
@@ -149,7 +162,9 @@ Request Body:
 ```
 
 #### Response
+
 ##### Success (HTTP 200 OK)
+
 ```json
 {
   "id": "7fs7238d-sdfi-3asdf-asdf-asdfasdf34",
@@ -163,6 +178,7 @@ Request Body:
 ```
 
 ##### Failure (HTTP 400 Bad Request)
+
 ```json
 {
   "error": {
@@ -172,6 +188,7 @@ Request Body:
 ```
 
 ##### Failure (HTTP 404 Bad Request)
+
 ```json
 {
   "error": {
@@ -181,6 +198,7 @@ Request Body:
 ```
 
 ##### Failure (HTTP 500 Internal Server Error)
+
 ```json
 {
   "error": {
@@ -190,6 +208,7 @@ Request Body:
 ```
 
 ### GET /api/tasks/list
+
 This endpoint retrieves a list of all tasks
 
 #### Request
@@ -199,7 +218,9 @@ Method: `GET`
 Content-Type: `application/json`
 
 #### Response
+
 ##### Success (HTTP 200 OK)
+
 ```json
 [
   {
@@ -221,10 +242,10 @@ Content-Type: `application/json`
     "updatedAt": "2025-04-26T10:00:00Z"
   }
 ]
-
 ```
 
 ##### Failure (HTTP 500 Internal Server Error)
+
 ```json
 {
   "error": {
@@ -234,6 +255,7 @@ Content-Type: `application/json`
 ```
 
 ### PUT /api/tasks/update
+
 This endpoint is used to update an existing task
 
 #### Request
@@ -242,6 +264,7 @@ URL: `/api/tasks/update`
 Method: `PUT`
 Content-Type: `application/json`
 Request Body:
+
 ```
 {
   id: (string, required) The uuid of task
@@ -254,7 +277,9 @@ Request Body:
 ```
 
 #### Response
+
 ##### Success (HTTP 200 OK)
+
 ```json
 {
   "id": "7fs7238d-sdfi-3asdf-asdf-asdfasdf34",
@@ -268,6 +293,7 @@ Request Body:
 ```
 
 ##### Failure (HTTP 400 Bad Request)
+
 ```json
 {
   "error": {
@@ -280,6 +306,7 @@ Request Body:
 ```
 
 ##### Failure (HTTP 404 Not Found)
+
 ```json
 {
   "error": {
@@ -289,6 +316,7 @@ Request Body:
 ```
 
 ##### Failure (HTTP 500 Internal Server Error)
+
 ```json
 {
   "error": {
