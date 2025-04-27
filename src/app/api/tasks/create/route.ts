@@ -5,7 +5,6 @@ import { InferResponseType } from "@/types/helpers";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  console.log(req);
   try {
     const body = await req.json();
     const parsed = createTaskSchema.safeParse(body);

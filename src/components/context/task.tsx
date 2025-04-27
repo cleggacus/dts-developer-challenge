@@ -53,6 +53,14 @@ export const TasksProvider = ({ children }: { children: React.ReactNode }) => {
         const response = await fetch("/api/tasks/list");
         const data: ListTaskResponse = await response.json();
 
+        if ("error" in data) {
+          setTasks({
+            state: "failed",
+          });
+
+          return;
+        }
+
         const tasks: Tasks = {
           state: "fetched",
           taskList: [],
@@ -174,10 +182,10 @@ export const TasksProvider = ({ children }: { children: React.ReactNode }) => {
                 index === -1
                   ? [...tasks.taskList, data]
                   : [
-                      ...tasks.taskList.slice(0, index),
-                      data,
-                      ...tasks.taskList.slice(index + 1),
-                    ],
+                    ...tasks.taskList.slice(0, index),
+                    data,
+                    ...tasks.taskList.slice(index + 1),
+                  ],
             };
           }
 
@@ -305,10 +313,10 @@ export const TasksProvider = ({ children }: { children: React.ReactNode }) => {
                 index === -1
                   ? [...tasks.taskList, data]
                   : [
-                      ...tasks.taskList.slice(0, index),
-                      data,
-                      ...tasks.taskList.slice(index + 1),
-                    ],
+                    ...tasks.taskList.slice(0, index),
+                    data,
+                    ...tasks.taskList.slice(index + 1),
+                  ],
             };
           }
 

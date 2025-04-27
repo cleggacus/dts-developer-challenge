@@ -17,15 +17,15 @@ export const createTaskSchema = z.object({
 });
 
 export const deleteTaskSchema = z.object({
-  id: z.string().uuid(),
+  id: z.string(),
 });
 
 export const getTaskSchema = z.object({
-  id: z.string().uuid(),
+  id: z.string(),
 });
 
 export const updateTaskSchema = z.object({
-  id: z.string().uuid(),
+  id: z.string(),
   title: titleString.optional(),
   description: z.string().optional(),
   status: statusEnum.optional(),
